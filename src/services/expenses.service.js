@@ -26,7 +26,7 @@ function createExpensesService() {
     if (categories) {
       const cats = Array.isArray(categories) ? categories : [categories];
 
-      where.category = { [Op.in]: cats };
+      where.categoryId = { [Op.in]: cats.map(Number) };
     }
 
     return Expense.findAll({ where });

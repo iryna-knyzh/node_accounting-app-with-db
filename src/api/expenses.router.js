@@ -34,7 +34,7 @@ function createExpensesRouter(expensesService, usersService) {
   });
 
   expensesRouter.post('/', async (req, res) => {
-    const { userId, spentAt, title, amount, category, note } = req.body;
+    const { userId, spentAt, title, amount, categoryId, note } = req.body;
 
     if (userId === undefined || !spentAt || !title || amount === undefined) {
       return res.sendStatus(400);
@@ -51,7 +51,7 @@ function createExpensesRouter(expensesService, usersService) {
       spentAt,
       title,
       amount: Number(amount),
-      category,
+      categoryId: categoryId !== undefined ? Number(categoryId) : null,
       note,
     });
 
