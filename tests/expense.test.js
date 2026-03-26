@@ -162,6 +162,7 @@ describe('Expense', () => {
       expect(response.data).toEqual([
         {
           id: expenseId,
+          categoryId: null,
           ...data,
         },
       ]);
@@ -187,6 +188,7 @@ describe('Expense', () => {
       expect(response.data).toEqual([
         {
           id: expenseId,
+          categoryId: null,
           ...data,
         },
       ]);
@@ -221,10 +223,12 @@ describe('Expense', () => {
       expect(response.data).toEqual([
         {
           id: expenseId,
+          categoryId: null,
           ...data,
         },
         {
           id: secondExpenseId,
+          categoryId: null,
           ...seconData,
         },
       ]);
@@ -252,6 +256,7 @@ describe('Expense', () => {
       expect(response.data).toEqual([
         {
           id: expenseId,
+          categoryId: null,
           ...data,
         },
       ]);
@@ -273,6 +278,7 @@ describe('Expense', () => {
 
       expect(response.data).toEqual({
         id: expenseId,
+        categoryId: null,
         ...data,
       });
     });
@@ -303,6 +309,7 @@ describe('Expense', () => {
 
       expect(response.data).toEqual({
         id: expenseId,
+        categoryId: null,
         ...data,
         title: 'Buy a new TV',
       });

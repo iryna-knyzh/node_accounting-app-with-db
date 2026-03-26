@@ -1,30 +1,35 @@
 'use strict';
 
+const { Op } = require('sequelize');
 const { Expense } = require('../models/Expense.model');
 
 function createExpensesService() {
-  async function getAll({ userId, from, to, categories } = {}) {
-    let result = await Expense.findAll();
+  function getAll({ userId, from, to, categories } = {}) {
+    const where = {};
 
     if (userId !== undefined) {
-      result = result.filter((e) => e.userId === Number(userId));
+      where.userId = Number(userId);
     }
 
-    if (from) {
-      result = result.filter((e) => new Date(e.spentAt) >= new Date(from));
-    }
+    if (from || to) {
+      where.spentAt = {};
 
-    if (to) {
-      result = result.filter((e) => new Date(e.spentAt) <= new Date(to));
+      if (from) {
+        where.spentAt[Op.gte] = new Date(from);
+      }
+
+      if (to) {
+        where.spentAt[Op.lte] = new Date(to);
+      }
     }
 
     if (categories) {
       const cats = Array.isArray(categories) ? categories : [categories];
 
-      result = result.filter((e) => cats.includes(e.category));
+      where.category = { [Op.in]: cats };
     }
 
-    return result;
+    return Expense.findAll({ where });
   }
 
   function getById(id) {
